@@ -5,7 +5,7 @@ import os
 from  credentials import db_access
 
 host= "ds113925.mlab.com:13925"
-db_name = "rainbow"
+db_name = "bow"
 
 uri = "mongodb://%s:%s@%s/%s" % (db_access.user, db_access.passowrd, host, db_name)
 

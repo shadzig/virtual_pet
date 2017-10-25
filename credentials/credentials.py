@@ -1,4 +1,4 @@
-from pymongo  import mongoClient
+from pymongo import mongoClient
 import datatime
 
 import flask_starter.credentials import db_access

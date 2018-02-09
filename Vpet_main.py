@@ -5,8 +5,13 @@ import time
 import sys
 import RPi.GPIO as GPIO
 
+# Sound trigger library content
+from gpiozero import OutputDevice
+from time import sleep
+
+
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Start by reading the existing JSON file, if it exists.
 
@@ -33,7 +38,7 @@ def sampleButton():
     print("SAMPLE")
     
     
-    input_state = GPIO.input(19)
+    input_state = GPIO.input(9)
     if input_state == False:
         return 1
     else:
@@ -54,12 +59,32 @@ def stateForTime():
 
     if hour >= 20:
         return Smile
+        out= OutputDevice(26 ,False)
+        out.on()
+        sleep(0.126)
+        out.toggle()
+        
     elif hour >= 21:
         return Neutral
+        out= OutputDevice(19 ,False)
+        out.on()
+        sleep(0.126)
+        out.toggle()
+        
     elif hour >= 22:
         return Sad
+        out= OutputDevice(13 ,False)
+        out.on()
+        sleep(0.126)
+        out.toggle()
+        
     elif hour >= 23:
         return Angry
+        out= OutputDevice(6 ,False)
+        out.on()
+        sleep(0.126)
+        out.toggle()
+        
     else:
         return IDLE_DAYTIME
 

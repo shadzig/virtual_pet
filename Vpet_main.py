@@ -10,7 +10,7 @@ from gpiozero import OutputDevice
 from time import sleep
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 # Neopixel libraries
@@ -53,7 +53,6 @@ clearLED = {
     'color' : {'g': 0,'r': 0, 'b' : 0}
 }
 
-# Intialize the library (must be called once before other functions).3600
 
 # Start by reading the existing JSON file, if it exists.
 IDLE_DAYTIME = 1
@@ -78,7 +77,7 @@ def sampleButton():
     print("SAMPLE")
     
     
-    input_state = GPIO.input(9)
+    input_state = GPIO.input(10)
     if input_state == False:
         return 1
     else:
@@ -88,9 +87,8 @@ def middleOfDay():
     now = datetime.now()
     hour = now.hour
     return hour > 12 and hour < 13
-    strip.begin()
     
-#sound time loops   
+#sound time loops variables   
 out_grunt= OutputDevice(6 ,False) #replace out with other variable
 out_whine= OutputDevice(13 ,False) #replace out with other variable
 out_snore= OutputDevice(19 ,False) #replace out with other variable
@@ -124,13 +122,14 @@ def stateForTime():
         
         # Run Neopixel "smileLED", green
         
-        for i in smileLED['neoNumbers']:
-            strip.setPixelColorRGB(i, smileLED['color']['g'], smileLED['color']['r'], smileLED['color']['b'])
-            strip.show()
-        
         for i in clearLED['neoNumbers']:
             strip.setPixelColorRGB(i, clearLED['color']['g'], clearLED['color']['r'], clearLED['color']['b'])
             strip.show()
+            
+        for i in smileLED['neoNumbers']:
+            strip.setPixelColorRGB(i, smileLED['color']['g'], smileLED['color']['r'], smileLED['color']['b'])
+            strip.show()
+
             
         return Smile
         
@@ -151,13 +150,34 @@ def stateForTime():
         
          # Run Neopixel "neutralLED", green
 
+        for i in clearLED['neoNumbers']:
+            strip.setPixelColorRGB(i, clearLED['color']['g'], clearLED['color']['r'], clearLED['color']['b'])
+            strip.show()
+            
         for i in neutralLED['neoNumbers']:
             strip.setPixelColorRGB(i, neutralLED['color']['g'], neutralLED['color']['r'], neutralLED['color']['b'])
             strip.show()
             
-        for i in clearLED['neoNumbers']:
-            strip.setPixelColorRGB(i, clearLED['color']['g'], clearLED['color']['r'], clearLED['color']['b'])
-            strip.show()
+        #counter score
+        
+        while True:
+        
+            uin = 36000
+            try:
+                    when_to_stop = abs(int(uin))
+
+            while when_to_stop >= 0:
+                    m, s = divmod(when_to_stop, 60)
+                    h, m = divmod(m, 60)
+                    time_left = str(h).zfill(2) + ":" + str(m).zfill(2) + ":" + str(s).zfill(2)
+                    
+                    neutral_score = (when_to_stop)/360/4
+                    
+                    score_minus_neutral = 75 + (neutral_score)
+                    
+                    print(time_left + "  | score " + str(score_minus_neutral) + "\r", end="")
+                    when_to_stop -= 1
+                    writeJSON()
             
         return Neutral
         
@@ -178,13 +198,14 @@ def stateForTime():
         
          # Run Neopixel "sadLED", green
   
-        for i in sadLED['neoNumbers']:
-            strip.setPixelColorRGB(i, sadLED['color']['g'], sadLED['color']['r'], sadLED['color']['b'])
-            strip.show()
-        
         for i in clearLED['neoNumbers']:
             strip.setPixelColorRGB(i, clearLED['color']['g'], clearLED['color']['r'], clearLED['color']['b'])
             strip.show()
+            
+        for i in sadLED['neoNumbers']:
+            strip.setPixelColorRGB(i, sadLED['color']['g'], sadLED['color']['r'], sadLED['color']['b'])
+            strip.show()
+              
             
         return Sad
         
@@ -205,13 +226,14 @@ def stateForTime():
         
          # Run Neopixel "angryLED", green
         
-        for i in angryLED['neoNumbers']:
-            strip.setPixelColorRGB(i, angryLED['color']['g'], angryLED['color']['r'], angryLED['color']['b'])
-            strip.show()
-            
         for i in clearLED['neoNumbers']:
             strip.setPixelColorRGB(i, clearLED['color']['g'], clearLED['color']['r'], clearLED['color']['b'])
             strip.show()
+            
+        for i in angryLED['neoNumbers']:
+            strip.setPixelColorRGB(i, angryLED['color']['g'], angryLED['color']['r'], angryLED['color']['b'])
+            strip.show()
+        
         
         return Angry
         

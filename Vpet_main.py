@@ -132,6 +132,7 @@ def stateForTime():
 
             
         return Smile
+        #--------------------------------------------------------------------------------------------
         
     elif hour >= 21:
     
@@ -180,7 +181,7 @@ def stateForTime():
                     writeJSON()
             
         return Neutral
-        
+        #--------------------------------------------------------------------------------------------
     elif hour >= 22:
     
         # Sound "Whine"
@@ -205,10 +206,29 @@ def stateForTime():
         for i in sadLED['neoNumbers']:
             strip.setPixelColorRGB(i, sadLED['color']['g'], sadLED['color']['r'], sadLED['color']['b'])
             strip.show()
-              
+        
+        while True:
+        
+            uin = 36000
+            try:
+                    when_to_stop = abs(int(uin))
+
+            while when_to_stop >= 0:
+                    m, s = divmod(when_to_stop, 60)
+                    h, m = divmod(m, 60)
+                    time_left = str(h).zfill(2) + ":" + str(m).zfill(2) + ":" + str(s).zfill(2)
+                    
+                    sad_score = (when_to_stop)/36/6.666
+                    
+                    neutral_minus_sad = 60 + (sad_score)
+                    
+                    print(time_left + "  | score " + str(neutral_minus_sad) + "\r", end="")
+                    when_to_stop -= 1
+                    writeJSON()
             
         return Sad
-        
+        #--------------------------------------------------------------------------------------------
+
     elif hour >= 23:
     
         # Sound "Grunt"
@@ -234,8 +254,27 @@ def stateForTime():
             strip.setPixelColorRGB(i, angryLED['color']['g'], angryLED['color']['r'], angryLED['color']['b'])
             strip.show()
         
+        while True:
+        
+            uin = 36000
+            try:
+                    when_to_stop = abs(int(uin))
+
+            while when_to_stop >= 0:
+                    m, s = divmod(when_to_stop, 60)
+                    h, m = divmod(m, 60)
+                    time_left = str(h).zfill(2) + ":" + str(m).zfill(2) + ":" + str(s).zfill(2)
+                    
+                    angry_score = (when_to_stop)/36/1.666
+                    
+                    sad_minus_angry = (angry_score)
+                    
+                    print(time_left + "  | score " + str(sad_minus_angry) + "\r", end="")
+                    when_to_stop -= 1
+                    writeJSON()
         
         return Angry
+        #--------------------------------------------------------------------------------------------
         
     else:
         return IDLE_DAYTIME

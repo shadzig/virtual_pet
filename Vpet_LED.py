@@ -58,12 +58,13 @@ clearLED = {
 }
 
 # Intialize the library (must be called once before other functions).
-strip.begin()
+
+#strip.begin()
 '''for i in clearLED['neoNumbers']:
     strip.setPixelColorRGB(i, clearLED['color']['g'], clearLED['color']['r'], clearLED['color']['b'])
     strip.show()'''
     
-
+strip.begin()
 for i in smileLED['neoNumbers']:
     strip.setPixelColorRGB(i, smileLED['color']['g'], smileLED['color']['r'], smileLED['color']['b'])
     strip.show()
@@ -77,11 +78,12 @@ for i in neutralLED['neoNumbers']:
 strip.begin()
 for i in sadLED['neoNumbers']:
     strip.setPixelColorRGB(i, sadLED['color']['g'], sadLED['color']['r'], sadLED['color']['b'])
+    strip.show()
     
 strip.begin() 
 for i in angryLED['neoNumbers']:
     strip.setPixelColorRGB(i, angryLED['color']['g'], angryLED['color']['r'], angryLED['color']['b'])
-    strip.show()
+    strip.show()'''
     
 
 '''

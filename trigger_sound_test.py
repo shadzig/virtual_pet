@@ -5,7 +5,7 @@ from datetime import datetime
 
 pet_sound_repeat = datetime.now()
 
-out= OutputDevice(19,False)
+out= OutputDevice(6,False)
 
 while True:
 

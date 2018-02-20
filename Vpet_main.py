@@ -170,15 +170,16 @@ def stateForTime():
             while when_to_stop >= 0:
                     m, s = divmod(when_to_stop, 60)
                     h, m = divmod(m, 60)
-                    time_left = str(h).zfill(2) + ":" + str(m).zfill(2) + ":" + str(s).zfill(2)
                     
-                    neutral_score = (when_to_stop)/360/4
-                    
+                    neutral_score = (when_to_stop)/36/4
+            
                     score_minus_neutral = 75 + (neutral_score)
+                    
                     
                     print(time_left + "  | score " + str(score_minus_neutral) + "\r", end="")
                     when_to_stop -= 1
                     writeJSON()
+                                                                      
             
         return Neutral
         #--------------------------------------------------------------------------------------------

@@ -2,6 +2,9 @@
 
 from datetime import datetime
 import time
+import demo_SOUND
+#import demo_LED
+
 
 # For each task, a predefined interval:
 
@@ -26,6 +29,8 @@ def task_A():
     if deltaSecs > TASK_A_INTERVAL:
         print("[A    ]")
         task_A_last_done = now
+        demo_SOUND.hello()
+        demo_LED.mode_smile()
 
 def task_B():
     global task_B_last_done
@@ -35,6 +40,8 @@ def task_B():
 
     if deltaSecs > TASK_B_INTERVAL:
         print("[  B  ]")
+        demo_SOUND.neutral()
+        
         task_B_last_done = now
 
 def task_C():
@@ -46,6 +53,7 @@ def task_C():
     if deltaSecs > TASK_C_INTERVAL:
         print("[    C]")
         task_C_last_done = now
+        demo_SOUND.sad()
 
 # Main loop. Only one loop needed in the whole script: the tasks are polled to
 # see if they want to do anything. This loop runs 10 times a second, though the
